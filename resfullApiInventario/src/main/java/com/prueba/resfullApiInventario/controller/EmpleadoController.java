@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class EmpleadoController {
@@ -16,6 +17,21 @@ public class EmpleadoController {
     @GetMapping("/findAllEmployees")
     public List<Empleado> findAllEmployees(){
         return empleadoService.findAllEmployees();
+    }
+
+    @GetMapping("/findEmployeeByNameWithJPQL/{name}")
+    public Optional<Empleado> findEmployeeByNameWithJPQL(@PathVariable String name){
+        return empleadoService.findEmployeeByNameWithJPQL(name);
+    }
+
+    @GetMapping("/findByName/{name}")
+    public Optional<Empleado> findByName(@PathVariable String name){
+        return empleadoService.findByName(name);
+    }
+
+    @GetMapping("/findByNameIgnoreCase/{name}")
+    public Optional<Empleado> findByNameIgnoreCase(@PathVariable String name){
+        return empleadoService.findByNameIgnoreCase(name);
     }
 
     @PostMapping("/saveEmployee")

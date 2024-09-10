@@ -10,4 +10,7 @@ public interface EmpleadoService {
     Empleado saveEmployee(Empleado empleado);
     Empleado updateEmployee(Long id, Empleado empleado);
     void deleteEmployee(Long id);
+    Optional<Empleado> findEmployeeByNameWithJPQL(String name);
+    Optional<Empleado> findByName(String name);
+    Optional<Empleado> findByNameIgnoreCase(String name);
 }

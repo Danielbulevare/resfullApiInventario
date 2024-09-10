@@ -48,4 +48,19 @@ public class EmpleadoServiceImplementation implements EmpleadoService{
     public void deleteEmployee(Long id) {
         empleadoRepository.deleteById(id);
     }
+
+    @Override
+    public Optional<Empleado> findEmployeeByNameWithJPQL(String name) {
+        return empleadoRepository.findEmployeeByNameWithJPQL(name);
+    }
+
+    @Override
+    public Optional<Empleado> findByName(String name) {
+        return empleadoRepository.findByName(name);
+    }
+
+    @Override
+    public Optional<Empleado> findByNameIgnoreCase(String name) {
+        return empleadoRepository.findByNameIgnoreCase(name);
+    }
 }
