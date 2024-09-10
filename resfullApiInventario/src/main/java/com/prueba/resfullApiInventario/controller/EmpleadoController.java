@@ -4,6 +4,7 @@ import com.prueba.resfullApiInventario.entity.Empleado;
 import com.prueba.resfullApiInventario.error.EmployeeNotFoundException;
 import com.prueba.resfullApiInventario.service.EmpleadoService;
 import com.prueba.resfullApiInventario.service.EmpleadoServiceImplementation;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,7 +42,7 @@ public class EmpleadoController {
     }
 
     @PostMapping("/saveEmployee")
-    public Empleado saveEmployee(@RequestBody Empleado empleado){
+    public Empleado saveEmployee(@Valid @RequestBody Empleado empleado){
         return empleadoService.saveEmployee(empleado);
     }
 
