@@ -1,6 +1,7 @@
 package com.prueba.resfullApiInventario.service;
 
 import com.prueba.resfullApiInventario.entity.Empleado;
+import com.prueba.resfullApiInventario.error.EmployeeNotFoundException;
 import com.prueba.resfullApiInventario.repository.EmpleadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,5 +63,16 @@ public class EmpleadoServiceImplementation implements EmpleadoService{
     @Override
     public Optional<Empleado> findByNameIgnoreCase(String name) {
         return empleadoRepository.findByNameIgnoreCase(name);
+    }
+
+    @Override
+    public Empleado findEmployeeById(Long id) throws EmployeeNotFoundException {
+        Optional<Empleado> empleado = empleadoRepository.findById(id);
+
+        //Verifica si devuelve un valor nulo
+        if (!empleado.isPresent()){
+            throw new EmployeeNotFoundException("El empleado no existe");
+        }
+        return empleado.get();
     }
 }

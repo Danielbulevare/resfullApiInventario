@@ -1,6 +1,7 @@
 package com.prueba.resfullApiInventario.controller;
 
 import com.prueba.resfullApiInventario.entity.Empleado;
+import com.prueba.resfullApiInventario.error.EmployeeNotFoundException;
 import com.prueba.resfullApiInventario.service.EmpleadoService;
 import com.prueba.resfullApiInventario.service.EmpleadoServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,11 @@ public class EmpleadoController {
     @GetMapping("/findEmployeeByNameWithJPQL/{name}")
     public Optional<Empleado> findEmployeeByNameWithJPQL(@PathVariable String name){
         return empleadoService.findEmployeeByNameWithJPQL(name);
+    }
+
+    @GetMapping("/findEmployeeById/{id}")
+    public Empleado findById(@PathVariable Long id) throws EmployeeNotFoundException {
+        return empleadoService.findEmployeeById(id);
     }
 
     @GetMapping("/findByName/{name}")
