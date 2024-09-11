@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.prueba</groupId>
 	<artifactId>resfullApiInventario</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>resfullApiInventario</name>
 	<description>Proyecto prueba de inventario con Spring Boot</description>
 	<url/>
