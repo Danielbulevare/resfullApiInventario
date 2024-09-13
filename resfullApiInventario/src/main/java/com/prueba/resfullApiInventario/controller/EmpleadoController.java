@@ -1,9 +1,9 @@
 package com.prueba.resfullApiInventario.controller;
 
 import com.prueba.resfullApiInventario.entity.Empleado;
+import com.prueba.resfullApiInventario.error.EmailAlreadyExistsException;
 import com.prueba.resfullApiInventario.error.EmployeeNotFoundException;
 import com.prueba.resfullApiInventario.service.EmpleadoService;
-import com.prueba.resfullApiInventario.service.EmpleadoServiceImplementation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,8 +41,13 @@ public class EmpleadoController {
         return empleadoService.findByNameIgnoreCase(name);
     }
 
+    @GetMapping("/findByMailAndPassword/{mail}/{password}")
+    public Optional<Empleado> findByEmailAndPassword(@PathVariable String mail, @PathVariable String password) throws EmployeeNotFoundException{
+        return empleadoService.findByMailAndPassword(mail, password);
+    }
+
     @PostMapping("/saveEmployee")
-    public Empleado saveEmployee(@Valid @RequestBody Empleado empleado){
+    public Empleado saveEmployee(@Valid @RequestBody Empleado empleado) throws EmailAlreadyExistsException {
         return empleadoService.saveEmployee(empleado);
     }
 

@@ -1,9 +1,11 @@
 package com.prueba.resfullApiInventario.service;
 
 import com.prueba.resfullApiInventario.entity.Empleado;
+import com.prueba.resfullApiInventario.error.EmailAlreadyExistsException;
 import com.prueba.resfullApiInventario.error.EmployeeNotFoundException;
 import com.prueba.resfullApiInventario.repository.EmpleadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,8 +24,12 @@ public class EmpleadoServiceImplementation implements EmpleadoService{
     }
 
     @Override
-    public Empleado saveEmployee(Empleado empleado) {
-        return empleadoRepository.save(empleado);
+    public Empleado saveEmployee(Empleado empleado) throws EmailAlreadyExistsException {
+        try {
+            return empleadoRepository.save(empleado);
+        }catch (DataIntegrityViolationException e){
+            throw new EmailAlreadyExistsException("El correo electrónico ya está registrado.");
+        }
     }
 
     @Override
@@ -74,5 +80,17 @@ public class EmpleadoServiceImplementation implements EmpleadoService{
             throw new EmployeeNotFoundException("El empleado no existe");
         }
         return empleado.get();
+    }
+
+    //Application of methods
+    @Override
+    public Optional<Empleado> findByMailAndPassword(String mail, String password) throws EmployeeNotFoundException {
+        Optional<Empleado> empleado = empleadoRepository.findByMailAndPassword(mail, password);
+
+        if(!empleado.isPresent()){
+            throw new EmployeeNotFoundException("El empleado no existe.");
+        }
+
+        return empleado;
     }
 }

@@ -14,4 +14,5 @@ public interface EmpleadoRepository extends JpaRepository<Empleado, Long> {
     //Consulta con Inversion de Control
     Optional<Empleado> findByName(String name);
     Optional<Empleado> findByNameIgnoreCase(String name);
+    Optional<Empleado> findByMailAndPassword(String mail, String password);
 }
