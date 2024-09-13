@@ -1,7 +1,29 @@
 package com.prueba.resfullApiInventario.controller;
 
+import com.prueba.resfullApiInventario.entity.Estatus;
+import com.prueba.resfullApiInventario.error.StatusAlreadyExistsException;
+import com.prueba.resfullApiInventario.service.EstatusService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class EstatusController {
+    @Autowired
+    EstatusService estatusService;
+
+    @GetMapping("/findAllStatus")
+    public List<Estatus> findAllStatus(){
+        return estatusService.findAllStatus();
+    }
+
+    @PostMapping("/saveStatus")
+    public Estatus saveStatus(@Valid @RequestBody Estatus estatus) throws StatusAlreadyExistsException {
+        return estatusService.saveStatus(estatus);
+    }
 }
