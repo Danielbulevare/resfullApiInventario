@@ -52,6 +52,10 @@ public class EmpleadoServiceImplementation implements EmpleadoService{
             empleadoDb.setStatus(empleado.getStatus());
         }
 
+        if(Objects.nonNull(empleado.getRole())){
+            empleadoDb.setRole(empleado.getRole());
+        }
+
         return empleadoRepository.save(empleadoDb);
     }
 

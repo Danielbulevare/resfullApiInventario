@@ -41,4 +41,8 @@ public class Empleado {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_id_estatus", referencedColumnName = "id_estatus", nullable = false)
     private Estatus status;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_id_rol", referencedColumnName = "id_rol", nullable = false)
+    private Rol role;
 }
