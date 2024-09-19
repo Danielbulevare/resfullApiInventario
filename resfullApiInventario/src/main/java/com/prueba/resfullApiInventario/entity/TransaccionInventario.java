@@ -38,4 +38,8 @@ public class TransaccionInventario {
 
     @Column(name = "fecha_con_hora", nullable = false)
     private LocalDateTime dateWithTime;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_id_realizado_por_empledo", referencedColumnName = "id_empleado", nullable = false)
+    private Empleado employee;
 }
