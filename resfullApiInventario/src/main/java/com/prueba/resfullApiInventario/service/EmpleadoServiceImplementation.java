@@ -48,6 +48,10 @@ public class EmpleadoServiceImplementation implements EmpleadoService{
             empleadoDb.setPassword(empleado.getPassword());
         }
 
+        if (Objects.nonNull(empleado.getStatus())){
+            empleadoDb.setStatus(empleado.getStatus());
+        }
+
         return empleadoRepository.save(empleadoDb);
     }
 

@@ -8,5 +8,4 @@ import java.util.List;
 public interface EstatusService {
     List<Estatus> findAllStatus();
     Estatus saveStatus(Estatus estatus) throws StatusAlreadyExistsException;
-
 }

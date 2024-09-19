@@ -37,4 +37,8 @@ public class Empleado {
     @Length(min = 8, max = 50)
     @Column(name = "contrasenia", nullable = false, length = 50)
     private String password;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_id_estatus", referencedColumnName = "id_estatus", nullable = false)
+    private Estatus status;
 }
