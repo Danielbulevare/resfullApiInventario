@@ -48,6 +48,10 @@ public class ProductoServiceImplementation implements ProductoService{
             productoDB.get().setName(producto.getName());
         }
 
+        if (Objects.nonNull(producto.getStatus())){
+            productoDB.get().setStatus(producto.getStatus());
+        }
+
         try{
             return productoRepository.save(productoDB.get());
         } catch (DataIntegrityViolationException e) {

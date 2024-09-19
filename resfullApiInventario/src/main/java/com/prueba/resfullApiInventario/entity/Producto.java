@@ -23,5 +23,9 @@ public class Producto {
     @NotBlank(message = "Por favor agrega un nombre al producto.")
     @Length(min = 1, max = 20)
     @Column(name = "nombre_producto", length = 20, nullable = false, unique = true)
-    private String name ;
+    private String name;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_id_estatus", referencedColumnName = "id_estatus", nullable = false)
+    private Estatus status;
 }
