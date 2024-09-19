@@ -42,4 +42,8 @@ public class TransaccionInventario {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_id_realizado_por_empledo", referencedColumnName = "id_empleado", nullable = false)
     private Empleado employee;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_id_producto", referencedColumnName = "id_producto", nullable = false)
+    private Producto product;
 }
