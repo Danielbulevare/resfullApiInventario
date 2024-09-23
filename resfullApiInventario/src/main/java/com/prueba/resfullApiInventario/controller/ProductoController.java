@@ -1,5 +1,7 @@
 package com.prueba.resfullApiInventario.controller;
 
+import com.prueba.resfullApiInventario.projection.classbased.ProductoWithQuantityDTO;
+import com.prueba.resfullApiInventario.projection.classbased.ProductExistenceDTO;
 import com.prueba.resfullApiInventario.entity.Producto;
 import com.prueba.resfullApiInventario.error.NameAlreadyExistsException;
 import com.prueba.resfullApiInventario.error.ProductNotFoundException;
@@ -8,7 +10,10 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
+@RequestMapping("api/productos")
 public class ProductoController {
     @Autowired
     ProductoService productoService;
@@ -16,6 +21,16 @@ public class ProductoController {
     @GetMapping("/findProductById/{id}")
     public Producto findProductById(@PathVariable Long id) throws ProductNotFoundException {
         return productoService.findProductById(id);
+    }
+
+    @GetMapping("/findProductsWithQuantityFilteredByStatus/{idEstatus}")
+    public List<ProductoWithQuantityDTO> findProductsWithQuantityFilteredByStatus(@PathVariable Long idEstatus){
+        return productoService.findProductsWithQuantityFilteredByStatus(idEstatus);
+    }
+
+    @GetMapping("/findProductStock/{id}")
+    public ProductExistenceDTO findProductStock(@PathVariable Long id){
+        return productoService.findProductStock(id);
     }
 
     @PostMapping("/saveProduct")
