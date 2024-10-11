@@ -3,6 +3,8 @@ package com.prueba.resfullApiInventario.controller;
 import com.prueba.resfullApiInventario.entity.Empleado;
 import com.prueba.resfullApiInventario.error.EmailAlreadyExistsException;
 import com.prueba.resfullApiInventario.error.EmployeeNotFoundException;
+import com.prueba.resfullApiInventario.projection.classbased.EmployeeDataDTO;
+import com.prueba.resfullApiInventario.projection.interfacebased.closed.EmployeeDataClosedView;
 import com.prueba.resfullApiInventario.service.EmpleadoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,32 +20,32 @@ public class EmpleadoController {
     EmpleadoService empleadoService;
 
     @GetMapping("/findAllEmployees")
-    public List<Empleado> findAllEmployees(){
-        return empleadoService.findAllEmployees();
+    public List<EmployeeDataClosedView> findAllEmployees(){
+        return empleadoService.findBy();
     }
 
     @GetMapping("/findEmployeeByNameWithJPQL/{name}")
-    public Optional<Empleado> findEmployeeByNameWithJPQL(@PathVariable String name){
+    public Optional<EmployeeDataClosedView> findEmployeeByNameWithJPQL(@PathVariable String name){
         return empleadoService.findEmployeeByNameWithJPQL(name);
     }
 
     @GetMapping("/findEmployeeById/{id}")
-    public Empleado findById(@PathVariable Long id) throws EmployeeNotFoundException {
+    public EmployeeDataDTO findById(@PathVariable Long id) throws EmployeeNotFoundException {
         return empleadoService.findEmployeeById(id);
     }
 
     @GetMapping("/findByName/{name}")
-    public Optional<Empleado> findByName(@PathVariable String name){
+    public Optional<EmployeeDataClosedView> findByName(@PathVariable String name){
         return empleadoService.findByName(name);
     }
 
     @GetMapping("/findByNameIgnoreCase/{name}")
-    public Optional<Empleado> findByNameIgnoreCase(@PathVariable String name){
+    public Optional<EmployeeDataClosedView> findByNameIgnoreCase(@PathVariable String name){
         return empleadoService.findByNameIgnoreCase(name);
     }
 
     @GetMapping("/findByMailAndPassword/{mail}/{password}")
-    public Optional<Empleado> findByEmailAndPassword(@PathVariable String mail, @PathVariable String password) throws EmployeeNotFoundException{
+    public Optional<EmployeeDataClosedView> findByEmailAndPassword(@PathVariable String mail, @PathVariable String password) throws EmployeeNotFoundException{
         return empleadoService.findByMailAndPassword(mail, password);
     }
 

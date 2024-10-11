@@ -3,6 +3,8 @@ package com.prueba.resfullApiInventario.service;
 import com.prueba.resfullApiInventario.entity.Empleado;
 import com.prueba.resfullApiInventario.error.EmailAlreadyExistsException;
 import com.prueba.resfullApiInventario.error.EmployeeNotFoundException;
+import com.prueba.resfullApiInventario.projection.classbased.EmployeeDataDTO;
+import com.prueba.resfullApiInventario.projection.interfacebased.closed.EmployeeDataClosedView;
 import com.prueba.resfullApiInventario.repository.EmpleadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -19,8 +21,8 @@ public class EmpleadoServiceImplementation implements EmpleadoService{
     EmpleadoRepository empleadoRepository;
 
     @Override
-    public List<Empleado> findAllEmployees() {
-        return empleadoRepository.findAll();
+    public List<EmployeeDataClosedView> findBy() {
+        return empleadoRepository.findBy();
     }
 
     @Override
@@ -65,35 +67,43 @@ public class EmpleadoServiceImplementation implements EmpleadoService{
     }
 
     @Override
-    public Optional<Empleado> findEmployeeByNameWithJPQL(String name) {
+    public Optional<EmployeeDataClosedView> findEmployeeByNameWithJPQL(String name) {
         return empleadoRepository.findEmployeeByNameWithJPQL(name);
     }
 
     @Override
-    public Optional<Empleado> findByName(String name) {
+    public Optional<EmployeeDataClosedView> findByName(String name) {
         return empleadoRepository.findByName(name);
     }
 
     @Override
-    public Optional<Empleado> findByNameIgnoreCase(String name) {
+    public Optional<EmployeeDataClosedView> findByNameIgnoreCase(String name) {
         return empleadoRepository.findByNameIgnoreCase(name);
     }
 
     @Override
-    public Empleado findEmployeeById(Long id) throws EmployeeNotFoundException {
+    public EmployeeDataDTO findEmployeeById(Long id) throws EmployeeNotFoundException {
         Optional<Empleado> empleado = empleadoRepository.findById(id);
 
         //Verifica si devuelve un valor nulo
         if (!empleado.isPresent()){
             throw new EmployeeNotFoundException("El empleado no existe");
         }
-        return empleado.get();
+
+        EmployeeDataDTO employeeDataDTO = new EmployeeDataDTO(empleado.get().getId(),
+                empleado.get().getName(),
+                empleado.get().getStatus().getId(),
+                empleado.get().getStatus().getStatus(),
+                empleado.get().getRole().getId(),
+                empleado.get().getRole().getRole());
+
+        return employeeDataDTO;
     }
 
     //Application of methods
     @Override
-    public Optional<Empleado> findByMailAndPassword(String mail, String password) throws EmployeeNotFoundException {
-        Optional<Empleado> empleado = empleadoRepository.findByMailAndPassword(mail, password);
+    public Optional<EmployeeDataClosedView> findByMailAndPassword(String mail, String password) throws EmployeeNotFoundException {
+        Optional<EmployeeDataClosedView> empleado = empleadoRepository.findByMailAndPassword(mail, password);
 
         if(!empleado.isPresent()){
             throw new EmployeeNotFoundException("El empleado no existe.");
