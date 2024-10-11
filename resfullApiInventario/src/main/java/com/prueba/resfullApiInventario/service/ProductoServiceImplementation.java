@@ -1,5 +1,6 @@
 package com.prueba.resfullApiInventario.service;
 
+import com.prueba.resfullApiInventario.projection.classbased.ProductDataDTO;
 import com.prueba.resfullApiInventario.projection.classbased.ProductExistenceDTO;
 import com.prueba.resfullApiInventario.projection.classbased.ProductoWithQuantityDTO;
 import com.prueba.resfullApiInventario.entity.Producto;
@@ -30,14 +31,20 @@ public class ProductoServiceImplementation implements ProductoService{
     }
 
     @Override
-    public Producto findProductById(Long id) throws ProductNotFoundException{
+    public ProductDataDTO findProductById(Long id) throws ProductNotFoundException{
 
         Optional<Producto> producto = productoRepository.findById(id);
 
         if(!producto.isPresent()){
             throw new ProductNotFoundException("El producto no existe.");
         }
-        return producto.get();
+
+        ProductDataDTO productDataDTO = new ProductDataDTO(producto.get().getId(),
+                producto.get().getName(),
+                producto.get().getStatus().getId(),
+                producto.get().getStatus().getStatus());
+
+        return productDataDTO;
     }
 
     @Override

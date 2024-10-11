@@ -1,5 +1,6 @@
 package com.prueba.resfullApiInventario.controller;
 
+import com.prueba.resfullApiInventario.projection.classbased.ProductDataDTO;
 import com.prueba.resfullApiInventario.projection.classbased.ProductoWithQuantityDTO;
 import com.prueba.resfullApiInventario.projection.classbased.ProductExistenceDTO;
 import com.prueba.resfullApiInventario.entity.Producto;
@@ -19,7 +20,7 @@ public class ProductoController {
     ProductoService productoService;
 
     @GetMapping("/findProductById/{id}")
-    public Producto findProductById(@PathVariable Long id) throws ProductNotFoundException {
+    public ProductDataDTO findProductById(@PathVariable Long id) throws ProductNotFoundException {
         return productoService.findProductById(id);
     }
 
