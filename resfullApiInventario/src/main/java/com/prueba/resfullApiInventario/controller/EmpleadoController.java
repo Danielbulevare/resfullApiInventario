@@ -1,5 +1,7 @@
 package com.prueba.resfullApiInventario.controller;
 
+import com.prueba.resfullApiInventario.controller.models.AuthResponse;
+import com.prueba.resfullApiInventario.controller.models.AuthenticationRequest;
 import com.prueba.resfullApiInventario.entity.Empleado;
 import com.prueba.resfullApiInventario.error.EmailAlreadyExistsException;
 import com.prueba.resfullApiInventario.error.EmployeeNotFoundException;
@@ -8,6 +10,7 @@ import com.prueba.resfullApiInventario.projection.interfacebased.closed.Employee
 import com.prueba.resfullApiInventario.service.EmpleadoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -52,6 +55,11 @@ public class EmpleadoController {
     @PostMapping("/saveEmployee")
     public Empleado saveEmployee(@Valid @RequestBody Empleado empleado) throws EmailAlreadyExistsException {
         return empleadoService.saveEmployee(empleado);
+    }
+
+    @PostMapping("/authenticate")
+    public ResponseEntity<AuthResponse> authenticate(@RequestBody AuthenticationRequest request){
+        return ResponseEntity.ok(empleadoService.authenticate(request));
     }
 
     @PutMapping("/updateEmployee/{id}")

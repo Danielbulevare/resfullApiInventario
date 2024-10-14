@@ -1,5 +1,7 @@
 package com.prueba.resfullApiInventario.service;
 
+import com.prueba.resfullApiInventario.controller.models.AuthResponse;
+import com.prueba.resfullApiInventario.controller.models.AuthenticationRequest;
 import com.prueba.resfullApiInventario.entity.Empleado;
 import com.prueba.resfullApiInventario.error.EmailAlreadyExistsException;
 import com.prueba.resfullApiInventario.error.EmployeeNotFoundException;
@@ -19,4 +21,5 @@ public interface EmpleadoService {
     Optional<EmployeeDataClosedView> findByNameIgnoreCase(String name);
     EmployeeDataDTO findEmployeeById(Long id) throws EmployeeNotFoundException;
     Optional<EmployeeDataClosedView> findByMailAndPassword(String mail, String password) throws EmployeeNotFoundException;
+    AuthResponse authenticate(AuthenticationRequest request);
 }
