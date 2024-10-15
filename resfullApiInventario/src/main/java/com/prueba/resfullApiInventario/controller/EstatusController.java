@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/estatus")
+@CrossOrigin(origins = "http://localhost:4200")
 public class EstatusController {
     @Autowired
     EstatusService estatusService;
