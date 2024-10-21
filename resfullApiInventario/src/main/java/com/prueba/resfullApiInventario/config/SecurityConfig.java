@@ -1,6 +1,7 @@
 package com.prueba.resfullApiInventario.config;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -13,6 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.OrRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity //Permite definir y habilitar la seguridad a nivel de métodos dentro de nuestra aplicación
@@ -21,10 +23,13 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 public class SecurityConfig {
     private final JwtFilter jwtFilter;
     private final AuthenticationProvider authenticationProvider;
+    private final CorsConfigurationSource corsConfigurationSource; //Inyecta el Bean
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf(csrf -> csrf.disable())
+        httpSecurity
+                .cors(corsCustomizer -> corsCustomizer.configurationSource(corsConfigurationSource)) //Habilitar CORS
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth.requestMatchers(publicEndPoints()).permitAll() //Endpoints sin autenticación
                         .anyRequest().authenticated()//Cualquier otra petición a un endpoint, se necesita estar auténticado
                 )
