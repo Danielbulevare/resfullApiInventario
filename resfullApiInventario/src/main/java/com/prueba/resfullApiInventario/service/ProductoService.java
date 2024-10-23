@@ -6,7 +6,6 @@ import com.prueba.resfullApiInventario.projection.classbased.ProductExistenceDTO
 import com.prueba.resfullApiInventario.entity.Producto;
 import com.prueba.resfullApiInventario.error.NameAlreadyExistsException;
 import com.prueba.resfullApiInventario.error.ProductNotFoundException;
-
 import java.util.List;
 
 public interface ProductoService {
@@ -16,5 +15,5 @@ public interface ProductoService {
 
     //View class based
     List<ProductoWithQuantityDTO> findProductsWithQuantityFilteredByStatus(Long idEstatus);
-    ProductExistenceDTO findProductStock(Long id);
+    ProductExistenceDTO findProductStock(Long id) throws ProductNotFoundException;
 }

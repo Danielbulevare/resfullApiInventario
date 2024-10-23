@@ -66,7 +66,7 @@ public class ProductoServiceImplementation implements ProductoService{
         try{
             return productoRepository.save(productoDB.get());
         } catch (DataIntegrityViolationException e) {
-            throw new NameAlreadyExistsException("El producto ya esta registrado");
+            throw new NameAlreadyExistsException("El producto ya esta registrado.");
         }
     }
 
@@ -84,8 +84,12 @@ public class ProductoServiceImplementation implements ProductoService{
     }
 
     @Override
-    public ProductExistenceDTO findProductStock(Long id) {
+    public ProductExistenceDTO findProductStock(Long id) throws ProductNotFoundException {
         List<Object[]> product = productoRepository.findProductStock(id);
+
+        if (product.isEmpty()){
+            throw new ProductNotFoundException("El producto no existe o no tiene aún movimientos.");
+        }
 
         //Mapea el objeto Object para mepearlo con la clase ProductExistenceDTO
         ProductExistenceDTO productExistence = new ProductExistenceDTO((String) product.get(0)[0], ((Number) product.get(0)[1]).intValue());

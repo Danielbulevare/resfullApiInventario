@@ -10,7 +10,6 @@ import com.prueba.resfullApiInventario.service.ProductoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -31,7 +30,7 @@ public class ProductoController {
     }
 
     @GetMapping("/findProductStock/{id}")
-    public ProductExistenceDTO findProductStock(@PathVariable Long id){
+    public ProductExistenceDTO findProductStock(@PathVariable Long id) throws ProductNotFoundException {
         return productoService.findProductStock(id);
     }
 
