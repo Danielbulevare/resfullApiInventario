@@ -1,5 +1,6 @@
 package com.prueba.resfullApiInventario.config;
 
+import com.prueba.resfullApiInventario.entity.Empleado;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -30,7 +31,17 @@ public class JwtService {
     }
 
     public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails){
-        return Jwts.builder().setClaims(extraClaims)
+        /*
+        Agregar información personalizada al token (esta lineas de codigo no son necesarios a menos que
+        quiera mandar más info. en el token)
+         */
+        extraClaims.put("idEmployee",((Empleado) userDetails).getId());
+        extraClaims.put("nameEmployee",((Empleado) userDetails).getName());
+        extraClaims.put("statusEmployee",((Empleado) userDetails).getStatus());
+        extraClaims.put("roleEmployee",((Empleado) userDetails).getRole());
+
+        return Jwts.builder()
+                .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis())) //Fecha creación del token
 
