@@ -24,8 +24,8 @@ public class TransaccionInventario {
     @Column(name = "id_transaccion_inventario", nullable = false, columnDefinition = "BIGINT UNSIGNED")
     private Long id;
 
-    @Min(value = 1, message = "La entrada o salida mínima es de una unidad.")
-    @Max(value = 1000, message = "La entrada o salida máxima permitida es de mil unidades.")
+    @Min(value = -1000, message = "La salida máxima es de mil unidades.")
+    @Max(value = 1000, message = "La entrada máxima es de mil unidades.")
     @Column(name = "cantidad", nullable = false)
     private int quantity;
 
