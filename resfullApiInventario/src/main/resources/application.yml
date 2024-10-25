@@ -24,6 +24,8 @@ spring:
   sql:
     init:
       platform: mysql
+  jackson:
+    time-zone: America/Mexico_City
 
 ---
 spring:
@@ -45,3 +47,5 @@ spring:
   sql:
     init:
       platform: mysql
+  jackson:
+    time-zone: America/Mexico_City
